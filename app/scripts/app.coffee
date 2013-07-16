@@ -1,6 +1,4 @@
-'use strict'
-
-angular.module('remotelyAngularApp', [])
+window.app = angular.module('remotelyApp', [])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
