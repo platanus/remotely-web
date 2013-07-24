@@ -27,17 +27,20 @@
 		<div class="content">
 			<div class="row">
 				<div class="span9">
-				<div id="chat" class="well" data-uri="http://localhost:3000/websocket">
-					<div class="message">
-						<label class="label label-info">Andrés Arellano</label>Hello Platanus :)
-					</div>
+				<div id="chat" class="well">
+					<ul class="unstyled">
+						<li ng-repeat="message in messages">
+							<div class="message">
+								<label class="label label-info">{{message.user_name}}</label><span>{{message.msg_body}}</span>
+							</div>
+						</li>
+					</ul>
 				</div>
 
 				<div class="form-inline well">
 					<fieldset>
 						<input type="text" placeholder="type your message here" class="input-xlarge" id="message" autofocus="autofocus" ng-model="message">
 						<button id="send" class="btn btn-primary" ng-click="sendMessage()">Send</button>
-						<input type="text" placeholder="a message received will be shown here" class="input-xlarge" ng-model="display">
 					</fieldset>
 				</div>
 			</div>
