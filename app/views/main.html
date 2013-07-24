@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="span9">
 				<div id="chat" class="well">
-					<p class="lead">coffee-bar</p>
+					<p class="lead">{{active_channel}}</p>
 					<ul class="unstyled">
 						<li ng-repeat="message in messages">
 							<div class="message">
@@ -55,7 +55,8 @@
 							<li class="nav-header">Active</li>
 						</ul>
 					</div>
-					<input type="text" placeholder="Join a channel" ng-model="channel">
+					<input type="text" placeholder="Join a channel" ng-model="join_channel_name" ui-keyup="{13:'joinChannel($event)'}">
+					<input type="text" placeholder="Leave a channel" ng-model="leave_channel_name" ui-keyup="{13:'leaveChannel($event)'}">
 				</div>
 			</div>
 		</div><!--/row-->
