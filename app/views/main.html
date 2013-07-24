@@ -1,3 +1,62 @@
 <div ng-controller="MainCtrl">
-  <small>remotely... {{message}}</small>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">Remotely</a>
+				<div class="container nav-collapse">
+					<ul class="nav">
+						<li><div class="btn-group">
+							<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i> <span id="username">Guest</span> <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="" id="edit-user-info" data-target="#user-information" data-toggle="modal">Edit User Information</a></li>
+							</ul>
+						</div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="content">
+			<div class="row">
+				<div class="span9">
+				<div id="chat" class="well" data-uri="http://localhost:3000/websocket">
+					<div class="message">
+						<label class="label label-info">Andrés Arellano</label>Hello Platanus :)
+					</div>
+				</div>
+
+				<div class="form-inline well">
+					<fieldset>
+						<input type="text" placeholder="type your message here" class="input-xlarge" id="message" autofocus="autofocus" ng-model="message">
+						<button id="send" class="btn btn-primary" ng-click="sendMessage()">Send</button>
+						<input type="text" placeholder="a message received will be shown here" class="input-xlarge" ng-model="display">
+					</fieldset>
+				</div>
+			</div>
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<h3>Users</h3>
+						<ul class="nav nav-list" id="user-list">
+							<li class="nav-header">Active</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div><!--/row-->
+	</div><!--/content-->
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit"><a href="http://platan.us">Platanus</a></p>
+		</div>
+	</div>
+</div> <!-- /container -->
+
 </div>
