@@ -1,25 +1,33 @@
-app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', ($scope, Websocket, authService) ->
-	$scope.messages = []
-	$scope.user = authService.user
+app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', ($scope, Websocket, authService, User) ->
+  $scope.messages = []
+  $scope.active_channel = 'coffee-bar'
+  $scope.users = User.query
+      {}
+      # Success
+    , (response) ->
+      $scope.users = response
+      # Error
+    , (response) ->
 
-	newMessage = (message) ->
-		$scope.$apply ->
-			$scope.messages.push { nickname: message.nickname, msg_body: message.msg_body }
+  $scope.user = authService.user
 
-	$scope.active_channel = 'coffee-bar'
-	Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
+  newMessage = (message) ->
+    $scope.$apply ->
+     $scope.messages.push { nickname: message.nickname, msg_body: message.msg_body }
 
-	$scope.sendMessage = (event) ->
-		Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
-		$scope.message = ""
+  Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
 
-	$scope.joinChannel = (event) ->
-		$scope.active_channel = $scope.join_channel_name
-		Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
-		$scope.join_channel_name = ""
+  $scope.sendMessage = (event) ->
+    Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
+    $scope.message = ""
 
-	$scope.leaveChannel = (event) ->
-		Websocket.dispatcher.unsubscribe($scope.leave_channel_name)
-		$scope.active_channel = 'coffee-bar'
-		$scope.leave_channel_name = ""
-]
+  $scope.joinChannel = (event) ->
+    $scope.active_channel = $scope.join_channel_name
+    Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
+    $scope.join_channel_name = ""
+
+  $scope.leaveChannel = (event) ->
+    Websocket.dispatcher.unsubscribe($scope.leave_channel_name)
+    $scope.active_channel = 'coffee-bar'
+    $scope.leave_channel_name = ""
+  ]

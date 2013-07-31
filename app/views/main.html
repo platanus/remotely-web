@@ -24,6 +24,9 @@
 						<h3>Users</h3>
 						<ul class="nav nav-list" id="user-list">
 							<li class="nav-header">Active</li>
+              <li ng-repeat="user in users">
+                {{user.first_name + " " + user.last_name}}
+              </li>
 						</ul>
 					</div>
 					<div class="well sidebar-nav">
