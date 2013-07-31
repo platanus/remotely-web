@@ -33,6 +33,9 @@
 						<h3>Channels</h3>
 						<ul class="nav nav-list" id="channels-list">
 							<li class="nav-header">Active</li>
+              <li ng-repeat="channel in channels">
+                {{channel.label}}
+              </li>
 						</ul>
 					</div>
 					<input type="text" placeholder="Join a channel" ng-model="join_channel_name" ui-keyup="{13:'joinChannel($event)'}">
