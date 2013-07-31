@@ -1,13 +1,14 @@
 app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', ($scope, Websocket, authService, User) ->
   $scope.messages = []
   $scope.active_channel = 'coffee-bar'
-  $scope.users = User.query
+  $scope.users = User.query(
       {}
       # Success
     , (response) ->
       $scope.users = response
       # Error
     , (response) ->
+    )
 
   $scope.user = authService.user
 
