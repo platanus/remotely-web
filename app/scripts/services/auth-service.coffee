@@ -1,9 +1,9 @@
 app.service "authService", authService = ($resource, $q, settings) ->
-    resource = $resource(settings.apiHost + "/sessions", {},
+    resource = $resource(settings.apiPrefix + "/sessions", {},
       register:
         method: "POST"
         params: {}
-        url: settings.apiHost + "/registration"
+        url: settings.apiPrefix + "/registration"
         withCredentials: true
 
       login:

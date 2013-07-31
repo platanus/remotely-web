@@ -1,2 +1,2 @@
 app.value 'settings',
-  apiHost: '/api'
+  apiPrefix: '/api'
