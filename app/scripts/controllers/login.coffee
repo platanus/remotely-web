@@ -1,7 +1,4 @@
-'use strict'
-
-angular.module('remotelyAngularApp')
-  .controller 'LoginCtrl', ($scope, authService) ->
+app.controller 'LoginCtrl', ($scope, authService) ->
     $scope.loginUser = ->
 
       # Reset the alerts

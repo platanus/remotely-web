@@ -1,7 +1,4 @@
-'use strict'
-
-angular.module('remotelyAngularApp')
-  .controller 'HeaderCtrl', ($scope, authService) ->
+app.controller 'HeaderCtrl', ($scope, authService) ->
     # Options for the modal
     $scope.loginModalOpts =
       backdropFade: true

@@ -1,4 +1,2 @@
-'use strict'
-
-angular.module('remotelyAngularApp').value 'settings',
+app.value 'settings',
   apiHost: '/api'

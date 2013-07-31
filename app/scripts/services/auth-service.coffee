@@ -1,7 +1,4 @@
-'use strict';
-
-angular.module("remotelyAngularApp")
-  .service "authService", authService = ($resource, $q, settings) ->
+app.service "authService", authService = ($resource, $q, settings) ->
     resource = $resource(settings.apiHost + "/sessions", {},
       register:
         method: "POST"

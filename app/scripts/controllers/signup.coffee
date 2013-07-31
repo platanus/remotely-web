@@ -1,7 +1,4 @@
-'use strict'
-
-angular.module('remotelyAngularApp')
-  .controller 'SignupCtrl', ($scope, authService) ->
+app.controller 'SignupCtrl', ($scope, authService) ->
     $scope.registerUser = ->
 
       # Reset the alerts
