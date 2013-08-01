@@ -3,7 +3,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
   $scope.messages = []
   $scope.active_channel = 'coffee-bar'
 
-  $scope.users = User.query(
+  User.query(
       {}
       # Success
     , (response) ->
@@ -12,7 +12,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     , (response) ->
     )
 
-  $scope.channels = UserChannels.query(
+  UserChannels.query(
     # I don't know why I can't do something like this:
     # { user_id: $scope.user.data.user_id }
     # It's probably related to a missing authService callback.
