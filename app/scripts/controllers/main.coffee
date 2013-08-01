@@ -1,4 +1,4 @@
-app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserChannels', ($scope, Websocket, authService, User, UserChannels) ->
+app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserChannels', 'Channel', ($scope, Websocket, authService, User, UserChannels, Channel) ->
   $scope.user = authService.user
   $scope.messages = []
   $scope.active_channel = 'coffee-bar'
@@ -27,7 +27,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
 
   newMessage = (message) ->
     $scope.$apply ->
-     $scope.messages.push { nickname: message.nickname, msg_body: message.msg_body }
+      $scope.messages.push { nickname: message.nickname, msg_body: message.msg_body, channel_name: message.channel_name }
 
   Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
 

@@ -3,22 +3,24 @@
 	<div class="container">
 		<div class="content">
 			<div class="row">
-				<div class="span9">
-				<div id="chat" class="well">
-					<p class="lead">{{active_channel}}</p>
-					<ul class="unstyled">
-						<li ng-repeat="message in messages">
-							<div class="message">
-								<label class="label label-info">{{message.nickname}}</label><span>{{message.msg_body}}</span>
-							</div>
-						</li>
-					</ul>
-				</div>
+        <div class="span9">
 
-				<div class="form-inline well">
-					<input type="text" placeholder="type your message here" class="input-xlarge" id="message" autofocus="autofocus" ng-model="message" ui-keyup="{13:'sendMessage($event)'}">
-				</div>
-			</div>
+          <div ng-repeat="channel in channels" id="chat" class="well">
+           <p class="lead">{{channel.label}}</p>
+           <ul class="unstyled">
+            <!-- FIXME: The filter must only check against the message.channel_name -->
+            <li ng-repeat="message in messages | filter:channel.label">
+              <div class="message">
+                <label class="label label-info">{{message.nickname}}</label><span>{{message.msg_body}}</span>
+              </div>
+            </li>
+            </ul>
+          </div>
+
+      <div class="form-inline well">
+       <input type="text" placeholder="type your message here" class="input-xlarge" id="message" autofocus="autofocus" ng-model="message" ui-keyup="{13:'sendMessage($event)'}">
+     </div>
+   </div>
 				<div class="span3">
 					<div class="well sidebar-nav">
 						<h3>Users</h3>
