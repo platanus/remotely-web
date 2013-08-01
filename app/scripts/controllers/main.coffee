@@ -20,6 +20,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     { user_id: 1 }
     # Success
     , (response) ->
+      Websocket.dispatcher.subscribe(channel.label).bind 'channel_message', newMessage for channel in response
       $scope.channels = response
       # Error
     , (response) ->
@@ -29,15 +30,12 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     $scope.$apply ->
       $scope.messages.push { nickname: message.nickname, msg_body: message.msg_body, channel_name: message.channel_name }
 
-  Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
-
   $scope.sendMessage = (event) ->
     Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
     $scope.active_channel = $scope.join_channel_name
-    Websocket.dispatcher.subscribe($scope.active_channel).bind 'channel_message', newMessage
     $scope.join_channel_name = ""
 
   $scope.leaveChannel = (event) ->
