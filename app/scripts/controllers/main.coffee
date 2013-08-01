@@ -31,7 +31,10 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
       $scope.messages.push { nickname: message.nickname, msg_body: message.msg_body, channel_name: message.channel_name }
 
   $scope.sendMessage = (event) ->
-    Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
+    if ($scope.message.indexOf "#", 0) == 0
+      $scope.active_channel = $scope.message.substring(1)
+    else
+      Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
