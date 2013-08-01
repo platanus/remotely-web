@@ -5,11 +5,10 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
 
   User.query(
       {}
-      # Success
     , (response) ->
       $scope.users = response
-      # Error
     , (response) ->
+      console.log response
     )
 
   UserChannels.query(
@@ -18,12 +17,11 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     # It's probably related to a missing authService callback.
     # Hardcoded user_id to make it work
     { user_id: 1 }
-    # Success
     , (response) ->
       Websocket.dispatcher.subscribe(channel.label).bind 'channel_message', newMessage for channel in response
       $scope.channels = response
-      # Error
     , (response) ->
+      console.log response
     )
 
   newMessage = (message) ->
@@ -38,7 +36,13 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
-    $scope.active_channel = $scope.join_channel_name
+    # FIXME: we need to send the auth token
+    UserChannels.save { user_id: 6, label: $scope.join_channel_name }
+    , (response) ->
+      $scope.active_channel = response.label
+      Websocket.dispatcher.subscribe(response.label).bind 'channel_message', newMessage
+    , (response) ->
+      console.log response
     $scope.join_channel_name = ""
 
   $scope.leaveChannel = (event) ->
