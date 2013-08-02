@@ -1,4 +1,4 @@
-app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserChannels', 'Channel', ($scope, Websocket, authService, User, UserChannels, Channel) ->
+app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserChannels', 'Channel', 'Message', ($scope, Websocket, authService, User, UserChannels, Channel, Message) ->
   $scope.user = authService.user
   $scope.messages = []
   $scope.active_channel = 'coffee-bar'
@@ -33,6 +33,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
       $scope.active_channel = $scope.message.substring(1)
     else
       Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel }
+      Message.save { user_id: 1, channel_id: 1, body: $scope.message }
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
