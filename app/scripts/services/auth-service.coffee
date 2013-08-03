@@ -24,4 +24,10 @@ app.service "authService", authService = ($resource, $q, settings) ->
 
     # Public API here
     resource: resource
-    user: {}
+    resolve: () ->
+      deferred = $q.defer()
+
+      this.resource.status {}, (e) ->
+        deferred.resolve e
+
+      deferred.promise

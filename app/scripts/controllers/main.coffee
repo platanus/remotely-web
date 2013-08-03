@@ -1,5 +1,5 @@
-app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserChannels', 'Channel', 'Message', ($scope, Websocket, authService, User, UserChannels, Channel, Message) ->
-  $scope.user = authService.user
+app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserChannels', 'Channel', 'Message', ($scope, Websocket, currentUser, User, UserChannels, Channel, Message) ->
+  $scope.currentUser = currentUser
   $scope.messages = []
 
   User.query(
@@ -11,11 +11,7 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
     )
 
   UserChannels.query(
-    # I don't know why I can't do something like this:
-    # { user_id: $scope.user.data.user_id }
-    # It's probably related to a missing authService callback.
-    # Hardcoded user_id to make it work
-    { user_id: 1 }
+    { user_id: $scope.currentUser.user_id }
     , (response) ->
       Websocket.dispatcher.subscribe(channel.label).bind 'channel_message', newMessage for channel in response
       $scope.channels = response
@@ -34,13 +30,13 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'authService', 'User', 'UserC
       for channel in $scope.channels
         $scope.active_channel = channel if channel.label == $scope.message.substring(1)
     else
-      Websocket.dispatcher.trigger 'new_message', {nickname: $scope.user.data.nickname, msg_body: $scope.message, channel_name: $scope.active_channel.label }
-      Message.save { user_id: 1, channel_id: $scope.active_channel.id, body: $scope.message }
+      Websocket.dispatcher.trigger 'new_message', {nickname: $scope.currentUser.nickname, msg_body: $scope.message, channel_name: $scope.active_channel.label }
+      Message.save { user_id: $scope.currentUser.user_id, auth_token: $scope.currentUser.auth_token, channel_id: $scope.active_channel.id, body: $scope.message }
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
     # FIXME: we need to send the auth token
-    UserChannels.save { user_id: 1, label: $scope.join_channel_name }
+    UserChannels.save { user_id: $scope.currentUser.user_id, auth_token: $scope.currentUser.auth_token, label: $scope.join_channel_name }
     , (response) ->
       $scope.active_channel = response
       Websocket.dispatcher.subscribe(response.label).bind 'channel_message', newMessage
