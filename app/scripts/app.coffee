@@ -1,4 +1,4 @@
-window.app = angular.module('remotelyAngularApp', ['ui', 'ngResource'])
+window.app = angular.module('remotelyAngularApp', ['ui', 'ngRoute', 'ngResource'])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
