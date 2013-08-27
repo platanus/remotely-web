@@ -35,7 +35,8 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserC
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
-    UserChannels.save { user_id: $scope.currentUser.user_id, label: $scope.join_channel_name }
+    # FIXME: we need to send the auth token
+    UserChannels.save { user_id: $scope.currentUser.user_id, auth_token: $scope.currentUser.auth_token, label: $scope.join_channel_name }
     , (response) ->
       $scope.active_channel = response
       Websocket.dispatcher.subscribe(response.label).bind 'channel_message', newMessage
