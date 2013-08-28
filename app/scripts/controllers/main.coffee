@@ -35,10 +35,11 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserC
     $scope.message = ""
 
   $scope.joinChannel = (event) ->
-    UserChannels.save { user_id: $scope.currentUser.user_id, auth_token: $scope.currentUser.auth_token, label: $scope.join_channel_name, pair: true  }
+    UserChannels.save { user_id: $scope.currentUser.user_id, auth_token: $scope.currentUser.auth_token, label: $scope.join_channel_name, pair: false  }
     , (response) ->
       $scope.active_channel = response
       Websocket.dispatcher.subscribe(response.label).bind 'channel_message', newMessage
+      $scope.channels.push response
     , (response) ->
       console.log response
     $scope.join_channel_name = ""
