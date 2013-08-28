@@ -37,7 +37,7 @@
 						<ul class="nav nav-list" id="channels-list">
 							<li class="nav-header">Active</li>
               <!-- FIXME: filter not working -->
-              <li ng-repeat="channel in channels | filter:pair==false">
+              <li ng-repeat="channel in channels | filter:standardChannel">
                 {{channel.label}}
               </li>
 						</ul>

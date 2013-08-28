@@ -44,6 +44,9 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserC
       console.log response
     $scope.join_channel_name = ""
 
+  $scope.standardChannel = (channel) ->
+    !channel.pair
+
   $scope.leaveChannel = (event) ->
     Websocket.dispatcher.unsubscribe($scope.leave_channel_name)
     $scope.active_channel = 'coffee-bar'
