@@ -5,7 +5,8 @@
 			<div class="row">
         <div class="span9">
 
-          <div ng-repeat="channel in channels" id="chat" class="well">
+          <!-- FIXME: filter not working -->
+          <div ng-repeat='channel in channels | filter:pair==false' id="chat" class="well">
            <p class="lead">{{channel.label}}</p>
            <ul class="unstyled">
             <!-- FIXME: The filter must only check against the message.channel_name -->
@@ -35,7 +36,8 @@
 						<h3>Channels</h3>
 						<ul class="nav nav-list" id="channels-list">
 							<li class="nav-header">Active</li>
-              <li ng-repeat="channel in channels">
+              <!-- FIXME: filter not working -->
+              <li ng-repeat="channel in channels | filter:pair==false">
                 {{channel.label}}
               </li>
 						</ul>
