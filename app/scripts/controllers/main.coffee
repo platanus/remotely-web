@@ -1,4 +1,4 @@
-app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserChannels', 'Channel', 'Message', ($scope, Websocket, currentUser, User, UserChannels, Channel, Message) ->
+app.controller 'MainCtrl', ($scope, Websocket, currentUser, User, UserChannels, Message) ->
   $scope.currentUser = currentUser
   $scope.messages = []
 
@@ -51,4 +51,3 @@ app.controller 'MainCtrl', ['$scope', 'Websocket', 'currentUser', 'User', 'UserC
     Websocket.dispatcher.unsubscribe($scope.leave_channel_name)
     $scope.active_channel = 'coffee-bar'
     $scope.leave_channel_name = ""
-  ]

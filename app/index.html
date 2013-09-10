@@ -16,7 +16,7 @@
         <!-- endbuild -->
         <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.css"/>
 </head>
-  <body ng-app="remotelyAngularApp">
+  <body ng-app="remotelyApp">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -29,8 +29,20 @@
     <!-- header here-->
     <div ng-include="'/views/header.html'" ng-controller="HeaderCtrl"></div>
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <aside class="span4">
+          <div ng-include="'/views/sidebar.html'" ng-controller="SidebarCtrl"></div>
+        </aside>
+
+        <!-- Add your site or application content here -->
+        <div class="span8" ng-view></div>
+      </div>
+    </div>
+
+    <!-- Footer: Message box -->
+    <div ng-include="'/views/footer.html'"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -87,8 +99,11 @@
     <script src="scripts/services/auth-service.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/user-channels.js"></script>
-    <script src="scripts/services/channel.js"></script>
     <script src="scripts/services/message.js"></script>
+    <script src="scripts/directives/message-box.js"></script>
+    <script src="scripts/directives/channel-item.js"></script>
+    <script src="scripts/controllers/sidebar.js"></script>
+    <script src="scripts/services/channels-service.js"></script>
     <!-- endbuild -->
 
   </body>

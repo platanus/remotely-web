@@ -1,0 +1,13 @@
+<div class="sidebar">
+  <ul class="unstyled">
+    <li>
+      <button ng-click="joinChannel('test')">New Channel</button>
+    </li>
+  </ul>
+  <ul class="unstyled">
+    <li ng-repeat="channel in channels" ng-click="setActiveChannel(channel)">
+       <div channel-item channel="channel"></div>
+    </li>
+  </ul>
+</div>
+

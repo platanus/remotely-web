@@ -1,7 +1,7 @@
-window.app = angular.module('remotelyAngularApp', ['ui', 'ngRoute', 'ngResource'])
+window.app = angular.module('remotelyApp', ['ui', 'ngRoute', 'ngResource'])
   .config ($routeProvider) ->
     $routeProvider
-      .when '/',
+      .when '/:channelId',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
         resolve:
@@ -9,3 +9,7 @@ window.app = angular.module('remotelyAngularApp', ['ui', 'ngRoute', 'ngResource'
             authService.resolve()
       .otherwise
         redirectTo: '/'
+  .run (ChannelsService) ->
+    ChannelsService.resolve()
+    return
+
